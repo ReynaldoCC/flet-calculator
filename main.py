@@ -30,6 +30,7 @@ class CalculatorApp(ft.UserControl):
                                 bgcolor=ft.colors.BLUE_GREY_100,
                                 color=ft.colors.BLACK,
                                 expand=2,
+                                on_click=self.click_clear_button
                             ),
                             ft.ElevatedButton(
                                 text="+/-",
@@ -37,7 +38,8 @@ class CalculatorApp(ft.UserControl):
                                 color=ft.colors.WHITE,
                                 expand=2,
                             ),
-                            ]),
+                        ]
+                    ),
                     ft.Row(
                         controls=[
                             ft.ElevatedButton(
@@ -45,6 +47,7 @@ class CalculatorApp(ft.UserControl):
                                 bgcolor=ft.colors.BLUE_GREY_100,
                                 color=ft.colors.BLACK,
                                 expand=1,
+                                on_click=self.click_clear_button
                             ),
                             ft.ElevatedButton(
                                 text="%",
@@ -209,6 +212,14 @@ class CalculatorApp(ft.UserControl):
         self.update()
 
     def click_get_result(self, e):
+        self.calculate_operation()
+        self.update()
+
+    def click_clear_button(self, e):
+        if e.control.text == "C":
+            self.operation.value = " ".join(self.operation.value.strip().split(" ")[:-2])
+        else:
+            self.operation.value = ""
         self.calculate_operation()
         self.update()
 
