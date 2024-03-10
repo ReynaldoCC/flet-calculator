@@ -1,3 +1,5 @@
+from ast import literal_eval
+
 import flet as ft
 
 
@@ -45,22 +47,25 @@ class CalculatorApp(ft.UserControl):
                                 expand=1,
                             ),
                             ft.ElevatedButton(
-                                text="√",
-                                bgcolor=ft.colors.ORANGE,
-                                color=ft.colors.WHITE,
-                                expand=1,
-                            ),
-                            ft.ElevatedButton(
                                 text="%",
                                 bgcolor=ft.colors.ORANGE,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_complex_oper_btn,
                             ),
                             ft.ElevatedButton(
-                                text="/",
+                                text="√",
                                 bgcolor=ft.colors.ORANGE,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_complex_oper_btn,
+                            ),
+                            ft.ElevatedButton(
+                                text="^",
+                                bgcolor=ft.colors.ORANGE,
+                                color=ft.colors.WHITE,
+                                expand=1,
+                                on_click=self.click_complex_oper_btn,
                             ),
                         ]
                     ),
@@ -71,24 +76,28 @@ class CalculatorApp(ft.UserControl):
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
                                 text="8",
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
                                 text="9",
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
-                                text="*",
+                                text="/",
                                 bgcolor=ft.colors.ORANGE,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_operation_button,
                             ),
                         ]
                     ),
@@ -99,24 +108,28 @@ class CalculatorApp(ft.UserControl):
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
                                 text="5",
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
                                 text="6",
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
-                                text="-",
+                                text="*",
                                 bgcolor=ft.colors.ORANGE,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_operation_button,
                             ),
                         ]
                     ),
@@ -127,24 +140,28 @@ class CalculatorApp(ft.UserControl):
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
                                 text="2",
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
                                 text="3",
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
-                                text="+",
+                                text="-",
                                 bgcolor=ft.colors.ORANGE,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_operation_button,
                             ),
                         ]
                     ),
@@ -154,7 +171,8 @@ class CalculatorApp(ft.UserControl):
                                 text="0",
                                 bgcolor=ft.colors.WHITE24,
                                 color=ft.colors.WHITE,
-                                expand=2,
+                                expand=1,
+                                on_click=self.click_number_button,
                             ),
                             ft.ElevatedButton(
                                 text=".",
@@ -167,12 +185,41 @@ class CalculatorApp(ft.UserControl):
                                 bgcolor=ft.colors.ORANGE,
                                 color=ft.colors.WHITE,
                                 expand=1,
+                                on_click=self.click_get_result,
+                            ),
+                            ft.ElevatedButton(
+                                text="+",
+                                bgcolor=ft.colors.ORANGE,
+                                color=ft.colors.WHITE,
+                                expand=1,
+                                on_click=self.click_operation_button,
                             ),
                         ]
                     ),
                 ]
             )
         )
+
+    def click_number_button(self, e):
+        self.operation.value += e.control.text
+        self.update()
+
+    def click_operation_button(self, e):
+        self.operation.value += f' {e.control.text} '
+        self.update()
+
+    def click_get_result(self, e):
+        self.calculate_operation()
+        self.update()
+
+    def click_complex_oper_btn(self, e):
+
+        self.update()
+
+    def calculate_operation(self):
+        value = self.operation.value
+        print(value)
+        self.result.value = eval(value)
 
 
 def main(page: ft.Page):
